@@ -69,8 +69,8 @@ class OurApiHandler(BaseHTTPRequestHandler):
         for key in form.keys():
             query_args[key] = form[key].value
 
-        # Read Post variables alternative
-        # query_args = dict(parse_qsl(urlparse(self.path).query))
+        # Read Post variables from url parameters and merge them with those found in the body
+        query_args.update(dict(parse_qsl(urlparse(self.path).query)))
 
         self.handle_new_request(query_function, query_args, 'POST')
 
